@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# FilePipe output
+output/
+
+# Terraform: never commit state or secrets
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+terraform.tfvars
+*.auto.tfvars
+
+# Ansible
+*.retry
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+
+# Keys: never commit these
+*.pem
+*.key
+.env

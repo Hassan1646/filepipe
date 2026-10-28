@@ -1,0 +1,14 @@
+# Run FilePipe locally against the sample data:
+#   mkdir -p output && docker compose up --build
+services:
+  filepipe:
+    build: .
+    image: filepipe:local
+    # Run as your own user ID so the container can write to ./output.
+    # Check yours with `id -u`; 1000 is the usual first user on Linux/WSL.
+    user: "1000:1000"
+    environment:
+      LOG_LEVEL: INFO
+    volumes:
+      - ./sample-data:/data/input:ro
+      - ./output:/data/output

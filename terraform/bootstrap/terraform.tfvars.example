@@ -1,0 +1,3 @@
+# Copy to terraform.tfvars and fill in
+owner       = "hassan1646@gmail.com"
+github_repo = "hassan1646/filepipe"

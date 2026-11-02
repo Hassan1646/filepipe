@@ -1,0 +1,50 @@
+- name: Create a dedicated service user
+  ansible.builtin.user:
+    name: filepipe
+    system: true
+    groups: docker
+    append: true
+    create_home: true
+
+- name: Create the config folder
+  ansible.builtin.file:
+    path: /etc/filepipe
+    state: directory
+    owner: root
+    group: filepipe
+    mode: "0750"
+
+- name: Write the environment file the container reads
+  ansible.builtin.template:
+    src: filepipe.env.j2
+    dest: /etc/filepipe/filepipe.env
+    owner: root
+    group: filepipe
+    mode: "0640"
+
+- name: Install the run script
+  ansible.builtin.template:
+    src: run-filepipe.sh.j2
+    dest: /usr/local/bin/run-filepipe.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install cron (not included on Amazon Linux 2023)
+  ansible.builtin.dnf:
+    name: cronie
+    state: present
+
+- name: Start cron
+  ansible.builtin.service:
+    name: crond
+    state: started
+    enabled: true
+
+- name: Schedule the nightly run
+  ansible.builtin.cron:
+    name: filepipe nightly run
+    user: filepipe
+    hour: "{{ filepipe_schedule_hour }}"
+    minute: "{{ filepipe_schedule_minute }}"
+    job: /usr/local/bin/run-filepipe.sh

@@ -1,0 +1,8 @@
+# Defaults: override these per environment
+filepipe_environment: dev
+filepipe_image: "filepipe:latest"
+filepipe_input_bucket: ""
+filepipe_output_bucket: ""
+filepipe_aws_region: eu-west-2
+filepipe_schedule_hour: "2"   # 02:00 every night
+filepipe_schedule_minute: "0"

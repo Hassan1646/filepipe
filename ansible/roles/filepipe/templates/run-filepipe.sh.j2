@@ -1,0 +1,17 @@
+#!/bin/bash
+# Managed by Ansible: do not edit by hand
+# Logs into ECR, pulls the image, runs one FilePipe batch, sends logs to CloudWatch.
+set -euo pipefail
+
+REGISTRY="$(echo '{{ filepipe_image }}' | cut -d/ -f1)"
+
+aws ecr get-login-password --region {{ filepipe_aws_region }} \
+  | docker login --username AWS --password-stdin "$REGISTRY"
+
+docker run --rm \
+  --env-file /etc/filepipe/filepipe.env \
+  --log-driver awslogs \
+  --log-opt awslogs-region={{ filepipe_aws_region }} \
+  --log-opt awslogs-group=/filepipe/{{ filepipe_environment }} \
+  --log-opt awslogs-create-group=false \
+  '{{ filepipe_image }}'

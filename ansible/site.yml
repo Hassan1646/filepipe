@@ -1,0 +1,8 @@
+# Note for myself -  Run with:
+#   ansible-playbook site.yml -e @inventories/dev/group_vars.yml
+- name: Configure FilePipe servers
+  hosts: filepipe
+  become: true
+  roles:
+    - docker
+    - filepipe

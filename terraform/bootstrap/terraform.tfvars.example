@@ -1,3 +1,8 @@
 # Copy to terraform.tfvars and fill in
-owner       = "hassan1646@gmail.com"
-github_repo = "hassan1646/filepipe"
+owner = "your.name@example.com"
+
+# Must match the identity GitHub sends, exactly (case-sensitive).
+# Older format:  "YourUser/filepipe"
+# Newer format (includes permanent IDs): "YourUser@12345678/filepipe@1234567890"
+# Check which one yours uses in CloudTrail (event AssumeRoleWithWebIdentity, field userName).
+github_repo = "your-github-username/filepipe"

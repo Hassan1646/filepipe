@@ -1,0 +1,31 @@
+name: Terraform checks
+
+on:
+  pull_request:
+    paths: ["terraform/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Format, validate and security scan
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [dev, test, prod]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Format check
+        run: terraform fmt -check -recursive terraform
+      - name: Validate
+        working-directory: terraform/envs/${{ matrix.env }}
+        run: |
+          terraform init -backend=false
+          terraform validate
+      - name: Security scan (checkov)
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: terraform/modules/filepipe
+          soft_fail: true # report only while learning; set to false later

@@ -10,6 +10,6 @@ variable "owner" {
 }
 
 variable "github_repo" {
-  description = "Your GitHub repo as owner/name, e.g. jsmith/filepipe"
+  description = "GitHub repo as it appears in the OIDC sub claim: owner/name or owner@id/name@id"
   type        = string
 }

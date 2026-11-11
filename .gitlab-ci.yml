@@ -31,7 +31,7 @@ build-image:
 scan-image:
   stage: scan
   image:
-    name: aquasec/trivy:0.69.3 # pinned: never use :latest for security tools
+    name: aquasec/0.76.2 # pinned: never use :latest for security tools
     entrypoint: [""]
   variables:
     TRIVY_USERNAME: $CI_REGISTRY_USER

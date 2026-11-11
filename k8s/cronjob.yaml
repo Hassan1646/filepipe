@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: filepipe-nightly
+  namespace: filepipe
+spec:
+  schedule: "0 2 * * *"          # 02:00 every night, like a batch scheduler
+  concurrencyPolicy: Forbid      # never run two at once
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2            # retry twice, then give up
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+          containers:
+            - name: filepipe
+              image: filepipe:local
+              imagePullPolicy: IfNotPresent # use the image loaded into kind
+              envFrom:
+                - configMapRef:
+                    name: filepipe-config
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+                limits:
+                  cpu: 250m
+                  memory: 256Mi
+              volumeMounts:
+                - name: input
+                  mountPath: /data/input
+                  readOnly: true
+                - name: output
+                  mountPath: /data/output
+          volumes:
+            - name: input
+              hostPath:
+                path: /data/input
+                type: Directory
+            - name: output
+              emptyDir: {}

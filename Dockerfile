@@ -9,6 +9,14 @@ FROM python:3.12-slim
 LABEL org.opencontainers.image.title="filepipe" \
       org.opencontainers.image.description="Nightly payment CSV cleaner"
 
+# Security: apply the latest OS security patches from Debian
+RUN apt-get update \
+ && apt-get upgrade -y --no-install-recommends \
+ && rm -rf /var/lib/apt/lists/*
+
+# Security: never run as root inside the container.
+
+
 # Security: never run as root inside the container.
 # Create the user and the data folders while we still have root rights.
 RUN useradd --create-home --uid 10001 filepipe \

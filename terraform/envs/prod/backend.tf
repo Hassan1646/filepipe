@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket       = "REPLACE-WITH-YOUR-STATE-BUCKET" # from bootstrap output
+    bucket       = "filepipe-tfstate-213211871756" # from bootstrap output
     key          = "filepipe/prod/terraform.tfstate"
     region       = "eu-west-2"
     encrypt      = true

@@ -13,7 +13,7 @@ provider "aws" {
   default_tags {
     tags = {
       Project     = "filepipe"
-      Environment = "dev"
+      Environment = "prod"
       Owner       = var.owner
       CostCentre  = "learning"
       ManagedBy   = "terraform"
@@ -24,10 +24,10 @@ provider "aws" {
 module "filepipe" {
   source = "../../modules/filepipe"
 
-  environment        = "dev"
-  vpc_cidr           = "10.2.0.0/16"
+  environment        = "prod"
+  vpc_cidr           = "10.4.0.0/16"
   admin_cidr         = var.admin_cidr
   ssh_public_key     = var.ssh_public_key
   alert_email        = var.alert_email
-  log_retention_days = 14
+  log_retention_days = 90
 }

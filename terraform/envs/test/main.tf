@@ -25,7 +25,7 @@ module "filepipe" {
   source = "../../modules/filepipe"
 
   environment        = "test"
-  vpc_cidr           = "10.2.0.0/16"
+  vpc_cidr           = "10.3.0.0/16"
   admin_cidr         = var.admin_cidr
   ssh_public_key     = var.ssh_public_key
   alert_email        = var.alert_email

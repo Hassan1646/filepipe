@@ -9,14 +9,17 @@ Cron on the EC2 server runs `/usr/local/bin/run-filepipe.sh`, which pulls the Do
 1. Open CloudWatch → Log groups → `/filepipe/<env>` and find the `ERROR` lines.
 2. Check the `reason` field:
    - `no input files found` → ask the Payments Data team whether a file was sent.
-   - `file is missing columns` → the supplier changed the file format. Raise with the service owner; do not edit the file.
+   - `file is missing columns` → the supplier changed the file format. Do not edit the file.
+     Quarantine it **from your own machine** (not the server: the server's role can't write to the input bucket):
+     `aws s3 mv s3://<input-bucket>/incoming/<file> s3://<input-bucket>/quarantine/<file>`
+     Then tell the service owner, and re-run the job by hand to check the other files.
    - Anything else → see "Run it by hand" below and raise an incident.
 3. Record what you found in the incident ticket.
 
 ## Run it by hand
 ```bash
 ssh -i ~/.ssh/filepipe ec2-user@<server-ip>
-sudo -u filepipe /usr/local/bin/run-filepipe.sh
+ssh-agent -k
 ```
 
 ## Deploy a new version

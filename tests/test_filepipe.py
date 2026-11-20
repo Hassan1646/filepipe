@@ -76,3 +76,13 @@ def test_run_end_to_end(tmp_path):
 def test_run_fails_when_no_files(tmp_path):
     storage = LocalStorage(str(tmp_path / "empty"), str(tmp_path / "output"))
     assert run(storage) == 2
+
+
+def test_reversed_status_is_accepted():
+    csv_text = (
+        "payment_id,claimant_ref,amount,payment_date,status\n"
+        "P1,AB1,10,01/10/2026,reversed\n"
+    )
+    good, rejected = transform(csv_text)
+    assert rejected == []
+    assert good[0]["status"] == "REVERSED"

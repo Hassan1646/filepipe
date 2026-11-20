@@ -38,3 +38,12 @@ Server shows filepipe:v1.1.0; prod run ends "run finished", success; alarm in OK
 Images are immutable, so v1.0.0 is exactly the version that ran before.
 
 ## Outcome (fill in afterwards)
+## Outcome (fill in afterwards)
+**Rolled back.**
+- 22:44 Released v1.1.0 (playbook changed=1, failed=0); server showed filepipe:v1.1.0
+- 22:45 Verification run: "run finished", success
+- ~22:46 Service owner reported unexpected REVERSED payments in the finance report
+- 22:46 Rolled back using the approved rollback plan: playbook with filepipe_image=v1.0.0 (changed=1, failed=0)
+- 22:46 Server shows filepipe:v1.0.0; verification run "run finished", success
+- Follow-up: v1.1.0 to be reviewed with the finance team before re-release (new Jira ticket)
+- main updated to match prod in the rollback PR

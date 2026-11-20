@@ -1,5 +1,5 @@
 # Values from `terraform output` in terraform/envs/prod
 filepipe_environment: prod
-filepipe_image: "213211871756.dkr.ecr.eu-west-2.amazonaws.com/filepipe:v1.1.0"
+filepipe_image: "213211871756.dkr.ecr.eu-west-2.amazonaws.com/filepipe:v1.0.0"
 filepipe_input_bucket: "filepipe-prod-input-213211871756"
 filepipe_output_bucket: "filepipe-prod-output-213211871756"

@@ -1,4 +1,4 @@
-# Values from `terraform output` in terraform/envs/dev
+# Values from `terraform output` in terraform/envs/test
 filepipe_environment: test
 filepipe_image: "213211871756.dkr.ecr.eu-west-2.amazonaws.com/filepipe:v1.0.0"
 filepipe_input_bucket: "filepipe-test-input-213211871756"

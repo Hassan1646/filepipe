@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
 REQUIRED_COLUMNS = ["payment_id", "claimant_ref", "amount", "payment_date", "status"]
-VALID_STATUSES = {"PAID", "PENDING", "FAILED"}
+VALID_STATUSES = {"PAID", "PENDING", "FAILED", "REVERSED"}
 OUTPUT_COLUMNS = REQUIRED_COLUMNS + ["processed_at"]
 
 
